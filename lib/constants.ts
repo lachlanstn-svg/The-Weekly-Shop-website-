@@ -1,0 +1,6 @@
+export const TOTAL_EARLY_BIRD_SPOTS = 50
+export const EARLY_BIRD_PRICE = 6.99
+export const REGULAR_PRICE = 20
+export const EARLY_BIRD_DISCOUNT_PERCENT = Math.round(
+  ((REGULAR_PRICE - EARLY_BIRD_PRICE) / REGULAR_PRICE) * 100
+)
