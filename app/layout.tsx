@@ -22,10 +22,8 @@ const inter = Inter({
 const title = 'The Weekly Shop — Eat well. Spend less.'
 const description = `Join the waitlist for The Weekly Shop — personalised weekly meal plans priced against real Australian supermarket prices. Early bird members lock in $${EARLY_BIRD_PRICE}/month for life.`
 
-// TODO: replace with the real domain once one is chosen — this affects the
-// absolute URLs Next.js generates for the Open Graph/Twitter share image.
 export const metadata: Metadata = {
-  metadataBase: new URL('https://theweeklyshop.com.au'),
+  metadataBase: new URL('https://www.theweeklyshop.store'),
   title,
   description,
   icons: {
