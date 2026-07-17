@@ -4,6 +4,12 @@ import { useState, useTransition, type FormEvent } from 'react'
 import { submitWaitlistSignup, type SignupState } from '@/app/actions'
 import { EARLY_BIRD_PRICE } from '@/lib/constants'
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+  }
+}
+
 export default function SignupForm() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
@@ -16,6 +22,14 @@ export default function SignupForm() {
     startTransition(async () => {
       const outcome = await submitWaitlistSignup({ email, name, honeypot })
       setResult(outcome)
+
+      // Only a genuinely new signup counts as a conversion — not a repeat
+      // visit from someone already on the list, and not a bot caught by
+      // the honeypot (that path also returns 'success', to avoid tipping
+      // the bot off, without ever touching the database).
+      if (outcome.status === 'success' && !honeypot) {
+        window.fbq?.('track', 'Lead')
+      }
     })
   }
 

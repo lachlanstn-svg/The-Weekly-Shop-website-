@@ -9,11 +9,14 @@ export function middleware(request: NextRequest) {
 
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    // https://connect.facebook.net is also listed explicitly as a fallback
+    // for browsers that don't support 'strict-dynamic' (which would
+    // otherwise let the nonce'd Meta Pixel script load it regardless).
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://connect.facebook.net`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    "img-src 'self' data: https://www.facebook.com",
     "font-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https://www.facebook.com https://connect.facebook.net",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
